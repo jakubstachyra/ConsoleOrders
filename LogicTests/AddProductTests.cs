@@ -1,6 +1,5 @@
 using LogicLibrary.Models;
 using LogicLibrary.Models.Products;
-using Moq;
 
 namespace LogicTests
 {
