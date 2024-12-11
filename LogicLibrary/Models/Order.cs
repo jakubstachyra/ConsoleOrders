@@ -1,4 +1,4 @@
-﻿using LogicLibrary.Models.Products;
+using LogicLibrary.Models.Products;
 
 namespace LogicLibrary.Models
 {
