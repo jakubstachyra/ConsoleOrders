@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicLibrary.Models
+﻿namespace LogicLibrary.Models.Products
 {
     public class Keyboard : Product
     {
-        public Keyboard() : base("Klawiatura", 120m) { }
+        public Keyboard() : base("Klawiatura", 120) { }
     }
 }

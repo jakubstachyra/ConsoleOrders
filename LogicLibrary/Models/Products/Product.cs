@@ -1,4 +1,4 @@
-﻿namespace LogicLibrary.Models
+﻿namespace LogicLibrary.Models.Products
 {
     public abstract class Product
     {
