@@ -5,7 +5,7 @@ namespace LogicLibrary.Models
     public class Order
     {
         public Guid OrderId { get;}
-        List<OrderItem> items {  get;}
+        public List<OrderItem> items {  get;}
 
         public Order()
         {
@@ -39,7 +39,9 @@ namespace LogicLibrary.Models
 
             var existingItemToRemove = items.FirstOrDefault(x => x.Product == product);
 
-            if(existingItemToRemove != null) { throw new ArgumentNullException("The product does not exist in the order")};
+            if(existingItemToRemove == null) 
+                throw new ArgumentNullException("The product does not exist in the order");
+            
             items.Remove(existingItemToRemove);
         }
     }
