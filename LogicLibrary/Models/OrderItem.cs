@@ -9,8 +9,8 @@ namespace LogicLibrary.Models
 
         public OrderItem(Product product, int quantity)
         {
-            ValidateQuantity(quantity);
             Product = product ?? throw new ArgumentNullException(nameof(product));
+            ValidateQuantity(quantity);
             Quantity = quantity;
         }
 
