@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicLibrary.Models
+﻿namespace LogicLibrary.Models.Products
 {
     public class Mouse : Product
     {
-        public Mouse() : base("Mysz", 90m) { }
+        public Mouse() : base("Mysz", 90) { }
     }
 }
