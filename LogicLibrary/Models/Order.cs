@@ -44,6 +44,15 @@ namespace LogicLibrary.Models
             
             items.Remove(existingItemToRemove);
         }
+        public float GetOrderValue()
+        {
+            float value = 0;
 
+            foreach (var item in items)
+            {
+                value += item.Product.Price * item.Quantity;
+            }
+            return value;
+        }
     }
 }
