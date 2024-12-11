@@ -44,5 +44,6 @@ namespace LogicLibrary.Models
             
             items.Remove(existingItemToRemove);
         }
+
     }
 }

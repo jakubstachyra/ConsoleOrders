@@ -40,6 +40,8 @@ namespace LogicTests
         [Test]
         public void RemoveProduct_ShouldThrowArgumentNullException_WhenProductIsNotInOrder()
         {
+            Product product = new Mouse();
+
             var exception = Assert.Throws<ArgumentNullException>(() => _order.RemoveProduct(product));
             Assert.That(exception.Message, Does.Contain("The product does not exist in the order"));
         }
