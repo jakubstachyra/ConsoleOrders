@@ -1,10 +1,10 @@
 ﻿using LogicLibrary.Models.Products;
-using LogicLibrary.Models;
+using LogicLibrary.Implementations;
 
 namespace LogicTests
 {
     [TestFixture]
-    public class OrderTests
+    public class GetOrderValueTests
     {
         private Order _order;
 

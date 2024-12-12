@@ -1,11 +1,11 @@
 using LogicLibrary.Models.Products;
 
-namespace LogicLibrary.Models
+namespace LogicLibrary.Implementations
 {
     public class Order
     {
-        public Guid OrderId { get;}
-        public List<OrderItem> items {  get;}
+        public Guid OrderId { get; }
+        public List<OrderItem> items { get; }
 
         public Order()
         {
@@ -14,15 +14,15 @@ namespace LogicLibrary.Models
         }
         public void AddProduct(Product product, int quantity)
         {
-            if(product == null)
+            if (product == null)
                 throw new ArgumentNullException(nameof(product));
 
-            if(quantity <= 0)
+            if (quantity <= 0)
                 throw new ArgumentException("Quantity must be greater than zero");
 
             var existingItem = items.FirstOrDefault(x => x.Product == product);
-            
-            if(existingItem != null)
+
+            if (existingItem != null)
             {
                 existingItem.UpadateQuantity(existingItem.Quantity + quantity);
             }
@@ -33,15 +33,15 @@ namespace LogicLibrary.Models
         }
         public void RemoveProduct(Product product)
         {
-            if(product == null)
+            if (product == null)
                 throw new ArgumentNullException(nameof(product), "Product cannot be null");
 
 
             var existingItemToRemove = items.FirstOrDefault(x => x.Product == product);
 
-            if(existingItemToRemove == null) 
+            if (existingItemToRemove == null)
                 throw new ArgumentNullException("The product does not exist in the order");
-            
+
             items.Remove(existingItemToRemove);
         }
         public float GetOrderValue()
@@ -54,5 +54,6 @@ namespace LogicLibrary.Models
             }
             return value;
         }
+        
     }
 }

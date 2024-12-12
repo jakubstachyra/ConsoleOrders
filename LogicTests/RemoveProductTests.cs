@@ -1,4 +1,4 @@
-﻿using LogicLibrary.Models;
+﻿using LogicLibrary.Implementations;
 using LogicLibrary.Models.Products;
 
 namespace LogicTests

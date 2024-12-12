@@ -1,6 +1,6 @@
 ﻿using LogicLibrary.Models.Products;
 
-namespace LogicLibrary.Models
+namespace LogicLibrary.Implementations
 {
     public class OrderItem
     {
@@ -19,7 +19,7 @@ namespace LogicLibrary.Models
             ValidateQuantity(newQuantity);
             Quantity = newQuantity;
         }
-        public float GetTotalPrice()
+        public decimal GetTotalPrice()
         {
             return Product.Price * Quantity;
         }
