@@ -26,7 +26,8 @@ namespace ConsoleOrderApp
                 Console.WriteLine("Please choose an option:");
                 Console.WriteLine("1. Add a product");
                 Console.WriteLine("2. Remove a product");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Save order to file");
+                Console.WriteLine("4. Exit");
                 Console.Write("Your choice: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 3)
@@ -47,6 +48,9 @@ namespace ConsoleOrderApp
                             RemoveProduct(orderManager);
                             break;
                         case 3:
+                            SaveOrderToFile(orderManager);
+                            break;
+                        case 4:
                             isRunning = false;
                             Console.WriteLine("Goodbye!");
                             break;
@@ -144,6 +148,42 @@ namespace ConsoleOrderApp
                 Console.WriteLine($"Total after discount: {totalValue} PLN\n");
             }
             Console.WriteLine("Empty\n");
+        }
+        private static void SaveOrderToFile(OrderManager orderManager)
+        {
+            string filePath = $"Order_{Guid.NewGuid()}.txt";
+
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    writer.WriteLine($"Order ID: {orderManager.GetOrderId()}");
+                    writer.WriteLine("Order Details:");
+
+                    var orderSummary = orderManager.GetOrderSummary();
+                    var items = orderSummary.Item4;
+                    foreach (var item in items)
+                    {
+                        writer.WriteLine(item);
+                    }
+
+                    var orderValue = orderSummary.Item1;
+                    var discount = orderSummary.Item2;
+                    var totalValue = orderValue - discount;
+
+                    writer.WriteLine($"\nOrder Value: {orderValue} PLN");
+                    writer.WriteLine($"Discount: {discount} PLN");
+                    writer.WriteLine($"Total after discount: {totalValue} PLN");
+                }
+
+                Console.WriteLine($"Order has been saved to {filePath}.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to save order: {ex.Message}");
+            }
+
+            Console.ReadKey();
         }
     }
 }

@@ -72,6 +72,10 @@ namespace ConsoleOrderApp
 
             return (orderValue, discount, totalValue, itemsCount);
         }
+        public Guid GetOrderId()
+        {
+            return _order.OrderId;
+        }
     }
 
 }
