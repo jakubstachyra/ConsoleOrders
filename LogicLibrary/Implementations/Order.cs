@@ -44,13 +44,13 @@ namespace LogicLibrary.Implementations
 
             items.Remove(existingItemToRemove);
         }
-        public float GetOrderValue()
+        public decimal GetOrderValue()
         {
-            float value = 0;
+            decimal value = 0;
 
             foreach (var item in items)
             {
-                value += item.Product.Price * item.Quantity;
+                value += item.GetTotalPrice();
             }
             return value;
         }

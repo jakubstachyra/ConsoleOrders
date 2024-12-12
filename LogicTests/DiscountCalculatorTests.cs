@@ -48,7 +48,7 @@ namespace LogicTests
         }
 
         [Test]
-        public void CalculateDiscount_ShouldApply10PercentOnSecondCheapestProduct_WhenTwoProductsExist()
+        public void CalculateDiscount_ShouldApply10PercentOnCheapestProduct_WhenTwoProductsExist()
         {
             _order.AddProduct(new Mouse(), 1);
             _order.AddProduct(new Keyboard(), 1); 
@@ -89,7 +89,7 @@ namespace LogicTests
         [Test]
         public void CalculateDiscount_ShouldCombine5PercentAnd10PercentDiscounts_WhenApplicable()
         {
-            _order.AddProduct(new Laptop(), 1); 
+            _order.AddProduct(new Laptop(), 2); 
             _order.AddProduct(new Mouse(), 1); 
 
             decimal discount = _discountCalculator.CalculateDiscount(_order);
