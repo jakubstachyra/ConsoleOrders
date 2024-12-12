@@ -147,7 +147,10 @@ namespace ConsoleOrderApp
                 Console.WriteLine($"Discount: {discount} PLN");
                 Console.WriteLine($"Total after discount: {totalValue} PLN\n");
             }
-            Console.WriteLine("Empty\n");
+            else
+            {
+                Console.WriteLine("Empty\n");
+            }
         }
         private static void SaveOrderToFile(OrderManager orderManager)
         {
