@@ -52,7 +52,15 @@ namespace ConsoleOrderApp
                 throw new ArgumentException("Invalid product choice.");
             }
 
-            _order.RemoveProduct(selectedProduct);
+            var existingItem = _order.items.Find(item => item.Product.Name == selectedProduct.Name && item.Product.Price == selectedProduct.Price);
+            if (existingItem == null)
+            {
+                Console.WriteLine($"The product '{selectedProduct.Name}' is not in the order.");
+                return;
+            }
+
+            _order.RemoveProduct(existingItem.Product);
+            Console.WriteLine($"Removed {selectedProduct.Name} from the order.");
         }
 
         public void DisplayOrderSummary()
@@ -71,5 +79,15 @@ namespace ConsoleOrderApp
             Console.WriteLine($"Discount: {discount} PLN");
             Console.WriteLine($"Total after discount: {totalValue} PLN\n");
         }
+        public List<string> GetCartItems()
+        {
+            var cartItems = new List<string>();
+            foreach (var item in _order.items)
+            {
+                cartItems.Add(item.ToString());
+            }
+            return cartItems;
+        }
     }
+
 }
