@@ -63,30 +63,14 @@ namespace ConsoleOrderApp
             Console.WriteLine($"Removed {selectedProduct.Name} from the order.");
         }
 
-        public void DisplayOrderSummary()
+        public (decimal orderValue, decimal discount, decimal totalValue, List<OrderItem> items) GetOrderSummary()
         {
             decimal orderValue = _order.GetOrderValue();
             decimal discount = _discountCalculator.CalculateDiscount(_order);
             decimal totalValue = orderValue - discount;
+            var itemsCount = _order.items;
 
-            Console.WriteLine("Current order:");
-            foreach (var item in _order.items)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine($"Order Value: {orderValue} PLN");
-            Console.WriteLine($"Discount: {discount} PLN");
-            Console.WriteLine($"Total after discount: {totalValue} PLN\n");
-        }
-        public List<string> GetCartItems()
-        {
-            var cartItems = new List<string>();
-            foreach (var item in _order.items)
-            {
-                cartItems.Add(item.ToString());
-            }
-            return cartItems;
+            return (orderValue, discount, totalValue, itemsCount);
         }
     }
 

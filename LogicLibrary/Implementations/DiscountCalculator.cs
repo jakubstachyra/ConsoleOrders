@@ -22,6 +22,7 @@ namespace LogicLibrary.Implementations
             if (sortedItems.Count == 2)
             {
                 betterDiscount = 0.1m * sortedItems[0].Product.Price;
+                betterDiscount *= sortedItems[0].Quantity;
             }
             else
             {

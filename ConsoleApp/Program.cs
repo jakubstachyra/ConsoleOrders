@@ -1,4 +1,5 @@
 ﻿using System;
+using LogicLibrary.Implementations;
 using LogicLibrary.Models.Products;
 
 namespace ConsoleOrderApp
@@ -25,13 +26,12 @@ namespace ConsoleOrderApp
                 Console.WriteLine("Please choose an option:");
                 Console.WriteLine("1. Add a product");
                 Console.WriteLine("2. Remove a product");
-                Console.WriteLine("3. Show order value and discounts");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("3. Exit");
                 Console.Write("Your choice: ");
 
-                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 4)
+                if (!int.TryParse(Console.ReadLine(), out int choice) || choice < 1 || choice > 3)
                 {
-                    Console.WriteLine("Invalid input. Please select a number between 1 and 4.");
+                    Console.WriteLine("Invalid input. Please select a number between 1 and 3.");
                     Console.ReadKey();
                     continue;
                 }
@@ -47,9 +47,6 @@ namespace ConsoleOrderApp
                             RemoveProduct(orderManager);
                             break;
                         case 3:
-                            orderManager.DisplayOrderSummary();
-                            break;
-                        case 4:
                             isRunning = false;
                             Console.WriteLine("Goodbye!");
                             break;
@@ -126,22 +123,27 @@ namespace ConsoleOrderApp
 
         private static void DisplayCart(OrderManager orderManager)
         {
-            Console.WriteLine("Current Cart:");
-            var items = orderManager.GetCartItems();
+            var orderSummary = orderManager.GetOrderSummary();
 
-            if (items.Count == 0)
-            {
-                Console.WriteLine("Your cart is empty.");
-            }
-            else
+            decimal orderValue = orderSummary.Item1;
+            decimal discount = orderSummary.Item2;
+            decimal totalValue = orderSummary.Item3;
+            var items = orderSummary.Item4;
+
+
+            Console.WriteLine("Current order:");
+            if (items.Count > 0)
             {
                 foreach (var item in items)
                 {
                     Console.WriteLine(item);
                 }
-            }
 
-            Console.WriteLine();
+                Console.WriteLine($"\nOrder Value: {orderValue} PLN");
+                Console.WriteLine($"Discount: {discount} PLN");
+                Console.WriteLine($"Total after discount: {totalValue} PLN\n");
+            }
+            Console.WriteLine("Empty\n");
         }
     }
 }
