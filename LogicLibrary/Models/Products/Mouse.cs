@@ -2,6 +2,6 @@
 {
     public class Mouse : Product
     {
-        public Mouse() : base("Mysz", 90) { }
+        public Mouse() : base("Mouse", 90) { }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class Keyboard : Product
     {
-        public Keyboard() : base("Klawiatura", 120) { }
+        public Keyboard() : base("Keyboard", 120) { }
     }
 }

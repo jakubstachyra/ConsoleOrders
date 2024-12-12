@@ -2,6 +2,6 @@
 {
     public class DebuggingDuck : Product
     {
-        public DebuggingDuck() : base("Kaczka debuggująca", 66) { }
+        public DebuggingDuck() : base("Debugging duck", 66) { }
     }
 }
