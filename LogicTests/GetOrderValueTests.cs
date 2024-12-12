@@ -17,7 +17,7 @@ namespace LogicTests
         [Test]
         public void GetOrderValue_ShouldReturnZero_WhenOrderIsEmpty()
         {
-            float orderValue = _order.GetOrderValue();
+            decimal orderValue = _order.GetOrderValue();
 
             Assert.That(orderValue, Is.EqualTo(0f));
         }
@@ -28,7 +28,7 @@ namespace LogicTests
             Product product = new Laptop();
             _order.AddProduct(product, 2);
 
-            float orderValue = _order.GetOrderValue();
+            decimal orderValue = _order.GetOrderValue();
 
             Assert.That(orderValue, Is.EqualTo(5000f));
         }
@@ -45,7 +45,7 @@ namespace LogicTests
             _order.AddProduct(laptop, laptopQuantity);
             _order.AddProduct(mouse, mouseQuantity);
 
-            float orderValue = _order.GetOrderValue();
+            decimal orderValue = _order.GetOrderValue();
 
             Assert.That(orderValue, Is.EqualTo(2770f));
         }
