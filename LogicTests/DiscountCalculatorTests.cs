@@ -37,7 +37,7 @@ namespace LogicTests
         }
 
         [Test]
-        public void CalculateDiscount_ShouldReturnZero_WhenOnlyOneProductIsInOrderAndValueIsGreaterThan5000()
+        public void CalculateDiscount_ShouldReturnValue_WhenOnlyOneProductIsInOrderAndValueIsGreaterThan5000()
         {
             _order.AddProduct(new Laptop(), 3);
 

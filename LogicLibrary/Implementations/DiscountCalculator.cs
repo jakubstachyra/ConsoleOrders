@@ -1,43 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LogicLibrary.Implementations;
 using LogicLibrary.Interfaces;
-using LogicLibrary.Models.Products;
+using System;
+using System.Linq;
 
-namespace LogicLibrary.Implementations
+public class DiscountCalculator : IDiscountCalculator
 {
-    public class DiscountCalculator : IDiscountCalculator
+    public decimal CalculateDiscount(Order order)
     {
-        public decimal CalculateDiscount(Order order)
+        if (order.items == null || !order.items.Any())
         {
-            if (order.items == null || !order.items.Any())
-            {
-                return 0;
-            }
-
-            decimal totalValue = order.GetOrderValue();
-            var sortedItems = order.items.OrderBy(item => item.Product.Price).ToList();
-            decimal betterDiscount;
-
-            if (sortedItems.Count == 2)
-            {
-                betterDiscount = 0.1m * sortedItems[0].Product.Price;
-                betterDiscount *= sortedItems[0].Quantity;
-            }
-            else
-            {
-                decimal discountOption1 = sortedItems.Count > 2 ? 0.2m * sortedItems[0].Product.Price : 0;
-                decimal discountOption2 = sortedItems.Count >= 3 ? 0.1m * sortedItems[1].Product.Price : 0;
-
-                betterDiscount = Math.Max(discountOption1, discountOption2);
-            }
-
-            if (totalValue - betterDiscount > 5000)
-            {
-                betterDiscount += 0.05m * (totalValue - betterDiscount);
-            }
-
-            return betterDiscount;
+            return 0m;
         }
+
+        decimal totalValue = order.GetOrderValue();
+        var sortedItems = order.items.OrderBy(item => item.Product.Price).ToList();
+
+        int count = sortedItems.Count;
+
+        if (count == 1)
+        {
+            return totalValue > 5000 ? 0.05m * totalValue : 0m;
+        }
+
+        if (count == 2)
+        {
+            var cheapestLine = sortedItems[0];
+            decimal lineDiscount = 0.1m * cheapestLine.Product.Price * cheapestLine.Quantity;
+
+            decimal newTotalAfterLineDiscount = totalValue - lineDiscount;
+            decimal finalDiscount = lineDiscount;
+
+            if (newTotalAfterLineDiscount > 5000)
+            {
+                finalDiscount += 0.05m * newTotalAfterLineDiscount;
+            }
+
+            return finalDiscount;
+        }
+
+        // Sytuacja, gdy mamy więcej niż dwa produkty w zamówieniu
+        // Możliwe opcje zniżek:
+        // Option1: 20% zniżki od najtańszego produktu
+        // Option2: 10% zniżki od drugiego najtańszego produktu
+        // Po wyliczeniu zniżki liniowej sprawdzamy czy wartość > 5000, jeśli tak to dodatkowe 5%.
+        var cheapestLineItem = sortedItems[0];
+        var secondCheapestLineItem = sortedItems[1];
+
+        // Opcja 1: 20% od najtańszego produktu
+        decimal option1LineDiscount = 0.2m * cheapestLineItem.Product.Price * cheapestLineItem.Quantity;
+        decimal option1NewTotal = totalValue - option1LineDiscount;
+        decimal option1FinalDiscount = option1LineDiscount;
+        if (option1NewTotal > 5000)
+        {
+            option1FinalDiscount += 0.05m * option1NewTotal;
+        }
+
+        // Opcja 2: 10% od drugiego najtańszego produktu
+        decimal option2LineDiscount = 0.1m * secondCheapestLineItem.Product.Price * secondCheapestLineItem.Quantity;
+        decimal option2NewTotal = totalValue - option2LineDiscount;
+        decimal option2FinalDiscount = option2LineDiscount;
+        if (option2NewTotal > 5000)
+        {
+            option2FinalDiscount += 0.05m * option2NewTotal;
+        }
+
+        // Wybierz lepszą opcję
+        return Math.Max(option1FinalDiscount, option2FinalDiscount);
     }
 }
