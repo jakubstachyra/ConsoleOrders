@@ -96,6 +96,7 @@ namespace ConsoleOrders
                 return;
             }
 
+
             try
             {
                 orderManager.AddProduct(productChoice, quantity);
